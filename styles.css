@@ -1236,7 +1236,7 @@ section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
-  padding: 36px 24px;
+  padding: 36px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1277,11 +1277,12 @@ section {
 }
 
 .contact-method-card p {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
   margin-bottom: 16px;
   font-weight: 500;
-  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .method-action {
@@ -1372,6 +1373,12 @@ section {
   }
   .contact-card-centered {
     padding: 40px 24px;
+  }
+  .contact-methods-centered {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 16px;
   }
 }
 
