@@ -3,6 +3,77 @@ console.log('script.js: Loaded. readyState:', document.readyState);
 function init() {
   console.log('script.js: Initializing portfolio functions...');
 
+  // Register GSAP ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize Lenis Smooth Scroll
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+    smoothTouch: false
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // Link ScrollTrigger updates to Lenis scroll events
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
+
+  // Background Glows Parallax
+  gsap.to('.glow-1', {
+    y: 150,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1
+    }
+  });
+
+  gsap.to('.glow-2', {
+    y: -250,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1
+    }
+  });
+
+  // Hero Section Parallax
+  gsap.to('.hero-visual', {
+    y: 80,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  gsap.to('.hero-content', {
+    y: -40,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
   /* ==========================================================================
      STICKY NAVBAR TRANSITION
      ========================================================================== */
@@ -32,21 +103,38 @@ function init() {
       menuIcon.style.display = 'none';
       closeIcon.style.display = 'block';
       document.body.style.overflow = 'hidden'; // Lock scrolling when open
+      lenis.stop();
     } else {
       menuIcon.style.display = 'block';
       closeIcon.style.display = 'none';
       document.body.style.overflow = '';
+      lenis.start();
     }
   };
 
   mobileToggle.addEventListener('click', toggleMenu);
 
-  // Close menu when links are clicked
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('open')) {
-        toggleMenu();
+  // Connect local anchor links to Lenis scrollTo
+  const allAnchors = document.querySelectorAll('a[href^="#"]');
+  allAnchors.forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      if (anchor.classList.contains('mobile-toggle') || anchor.id === 'modal-close') return;
+      
+      const targetId = anchor.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        
+        if (navMenu && navMenu.classList.contains('open')) {
+          toggleMenu();
+        }
+        
+        lenis.scrollTo(targetElement, {
+          offset: -80, // Offset for navbar height
+          duration: 1.2
+        });
       }
     });
   });
@@ -82,6 +170,19 @@ function init() {
 
   if (container && canvas) {
     const scene = new THREE.Scene();
+
+    // Galaxy scroll rotation animation
+    const galaxyScroll = { rotationY: 0 };
+    gsap.to(galaxyScroll, {
+      rotationY: Math.PI * 1.0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#projects',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
 
     // Camera
     const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
@@ -452,6 +553,9 @@ function init() {
         p.group.position.y = p.baseY + Math.sin(time + p.floatOffset) * 0.2;
       });
 
+      // Rotate the entire galaxy group with scroll position
+      scene.rotation.y = galaxyScroll.rotationY;
+
       controls.update();
       renderer.render(scene, camera);
     };
@@ -463,37 +567,30 @@ function init() {
   /* ==========================================================================
      REVEAL ON SCROLL ANIMATIONS (INTERSECTION OBSERVER)
      ========================================================================== */
-  const revealElements = document.querySelectorAll('.reveal, .metric-card, .skills-category-card, .timeline-item, .project-card, .edu-card, .certs-card');
+  const revealElements = document.querySelectorAll('[data-reveal]');
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('active-reveal');
+        const delay = entry.target.getAttribute('data-reveal-delay');
+        if (delay) {
+          setTimeout(() => {
+            entry.target.classList.add('active-reveal');
+          }, parseInt(delay));
+        } else {
+          entry.target.classList.add('active-reveal');
+        }
         observer.unobserve(entry.target); // Trigger only once
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters view
+    threshold: 0.05,
+    rootMargin: '0px 0px -30px 0px' // Trigger slightly before element enters view
   });
 
-  // Attach observer and set base style properties for transition
   revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity var(--transition-slow), transform var(--transition-slow)';
     revealObserver.observe(el);
   });
-
-  // Dynamic CSS helper definition injected to document head
-  const style = document.createElement('style');
-  style.textContent = `
-    .active-reveal {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-  `;
-  document.head.appendChild(style);
 
 
   /* ==========================================================================
@@ -682,12 +779,14 @@ function init() {
     projectModal.classList.add('open');
     projectModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden'; // Lock background scroll
+    lenis.stop();
   };
 
   const closeModal = () => {
     projectModal.classList.remove('open');
     projectModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = ''; // Unlock scroll
+    lenis.start();
     if (resetCamera) resetCamera();
   };
 
