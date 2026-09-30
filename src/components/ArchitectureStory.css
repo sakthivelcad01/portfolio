@@ -27,3 +27,4 @@
   .architecture-story .story-footer nav button{padding:7px 0}
   .architecture-story .story-note{margin:0;font-size:9px;line-height:1.4}
 }
+.architecture-heading h1{color:var(--text)}.architecture-heading h1 em{font-style:normal;color:var(--accent)}

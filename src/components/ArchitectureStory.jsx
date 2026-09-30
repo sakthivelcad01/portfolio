@@ -7,7 +7,7 @@ import "./ArchitectureStory.css";
 
 const stories = {
   "02": {
-    title: "One tick. Thousands of destinations.", label: "RUPIECE / NSE + BSE REAL-TIME DELIVERY",
+    title: "One tick.", titleAccent: "Thousands of destinations.", label: "RUPIECE / NSE + BSE REAL-TIME DELIVERY",
     nodes: ["NSE / BSE feed", "Conflate + delta", "Topic broker", "Gateway 01", "Gateway 02", "Gateway 03", "Subscribers", "Slow consumers", "Reconnecting clients"],
     chapters: [
       { title: "A single update becomes a crowd.", body: "A price tick must reach many subscribers. Sequential fan-out in the application can hold up other work, while long-lived connections consume memory and file descriptors.", before: "Fan-out concentrated in one process", after: "Dedicated gateways share subscriber delivery", detail: "Publish once per topic. Each gateway delivers to its local subscribers; latency and capacity still require measurement.", focus: [2, 3, 4, 5], metric: "100,000 clients / supplied load scenario" },
@@ -17,7 +17,7 @@ const stories = {
     ],
   },
   "03": {
-    title: "One source. Every survey language.", label: "FORMBRICKS / SURVEY INTERNATIONALIZATION",
+    title: "One source.", titleAccent: "Every survey language.", label: "FORMBRICKS / SURVEY INTERNATIONALIZATION",
     subtitle: "Package workflow / supplied documentation",
     solutionLabel: "Documented workflow",
     note: "PACKAGE WALKTHROUGH / Based on supplied documentation; this does not establish an individual contribution or a verified test run.",
@@ -33,7 +33,7 @@ const stories = {
     ],
   },
   "04": {
-    title: "Keep the request path moving.", label: "TRADING AUTOMATION / REQUEST ARCHITECTURE",
+    title: "Keep the request path", titleAccent: "moving.", label: "TRADING AUTOMATION / REQUEST ARCHITECTURE",
     nodes: ["10k-user scenario", "CDN edge", "Load balancer", "App node 01", "App node 02", "App node 03", "Redis cache", "Pooler → Postgres", "Queue → workers"],
     chapters: [
       { title: "Every request cannot hit the origin.", body: "The supplied scenario starts with a 10k-user audience. Repeated static and cacheable requests add avoidable work if every request reaches the application.", before: "All scenario requests reach origin", after: "8,000 cached / 2,000 dynamic requests", detail: "Serve eligible static or cached content at the edge. Authenticated trading data requires explicit cache rules and isolation. These request counts have no specified time window.", focus: [0, 1, 2], metric: "8,000 edge hits + 2,000 dynamic / scenario only" },
@@ -75,7 +75,7 @@ export default function ArchitectureStory({ project }) {
   return <div className="story architecture-story" data-resolved={fixed}>
     <WorkConnections />
     <header className="story-nav"><a href="/work"><ArrowLeft size={17} /> ALL WORK</a><span>WORK / {project.id}</span><button onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title="Change theme">{theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}</button></header>
-    <div className="architecture-heading"><span>{story.label}</span><h1>{story.title}</h1><p>{story.subtitle || "Proposed architecture / supplied scenarios"}</p></div>
+    <div className="architecture-heading"><span>{story.label}</span><h1>{story.title} <em>{story.titleAccent}</em></h1><p>{story.subtitle || "Proposed architecture / supplied scenarios"}</p></div>
     <div className="architecture-toolbar"><span>{chapter.metric}</span><div className="story-modes"><button aria-pressed={!fixed} onClick={() => { setFixed(false); setPlaying(false); }}>Problem</button><button aria-pressed={fixed} onClick={() => { setFixed(true); setPlaying(false); }}>{story.solutionLabel || "Proposed solution"}</button></div></div>
     <div className="architecture-map">
       <svg viewBox="0 0 1040 340" role="img" aria-label={`${project.title}: ${fixed ? `${chapter.after}. Routed through processing stages.` : `${chapter.before}. Direct connection fails midway: ${failureLabels[project.id][step]}.`}`}>
