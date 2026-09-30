@@ -7,6 +7,7 @@ import SkillMixer from "./components/SkillMixer";
 import ProjectGallery from "./components/ProjectGallery";
 import WorkPage from "./components/WorkPage";
 import ContactCanvas from "./components/ContactCanvas";
+import ContactSignature from "./components/ContactSignature";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -379,6 +380,7 @@ function App() {
               <a className="magnetic" href="#top">Back up <ArrowUpRight size={18} /></a>
             </div>
           </div>
+          <ContactSignature />
         </section>
       </main>
     </div>
