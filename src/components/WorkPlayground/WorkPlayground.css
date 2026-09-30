@@ -1,0 +1,411 @@
+.work-lab {
+  --case-accent: var(--accent);
+  --work-grid-line: color-mix(in srgb, var(--line) 62%, transparent);
+  --work-grid-line-alt: color-mix(in srgb, var(--line) 46%, transparent);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 64% 18%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 28rem),
+    radial-gradient(circle at 16% 82%, color-mix(in srgb, var(--artist) 30%, transparent), transparent 34rem),
+    linear-gradient(115deg, var(--bg) 0%, color-mix(in srgb, var(--engineer) 50%, var(--bg)) 52%, var(--bg) 100%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.lab-canvas,
+.lab-grid,
+.lab-orbit {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lab-canvas {
+  z-index: 0;
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+[data-theme="light"] .lab-canvas {
+  mix-blend-mode: multiply;
+  opacity: 0.86;
+}
+
+.lab-grid {
+  z-index: 1;
+  background:
+    linear-gradient(var(--work-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--work-grid-line-alt) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(circle at 50% 48%, black, transparent 82%);
+  opacity: 0.68;
+}
+
+.lab-orbit {
+  z-index: 1;
+  border: 1px solid color-mix(in srgb, var(--case-accent) 28%, transparent);
+  border-radius: 999px;
+  opacity: 0.22;
+}
+
+.lab-orbit-one {
+  inset: 10% -18% auto auto;
+  width: 70vw;
+  height: 70vw;
+  transform: rotate(-11deg);
+}
+
+.lab-orbit-two {
+  inset: auto auto -42% -18%;
+  width: 58vw;
+  height: 58vw;
+  transform: rotate(18deg);
+}
+
+.lab-topbar {
+  position: sticky;
+  top: 18px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(1260px, calc(100vw - 34px));
+  min-height: 58px;
+  margin: 18px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  padding: 0 18px;
+  backdrop-filter: blur(22px);
+}
+
+.lab-brand,
+.lab-topbar span,
+.lab-topbar a,
+.lab-topbar button {
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.lab-topbar span,
+.lab-actions a,
+.lab-actions button {
+  color: var(--case-accent);
+}
+
+.lab-actions {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.lab-actions a,
+.lab-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lab-actions button {
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel) 78%, transparent);
+}
+
+.lab-actions button:hover {
+  border-color: var(--case-accent);
+}
+
+.lab-shell {
+  position: relative;
+  z-index: 3;
+  width: min(1360px, calc(100vw - 34px));
+  min-height: calc(100vh - 76px);
+  margin: 0 auto;
+  padding: 62px 0 38px;
+}
+
+.lab-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 460px);
+  gap: 28px;
+  align-items: end;
+  max-width: 1220px;
+}
+
+.lab-kicker {
+  display: inline-flex;
+  align-items: center;
+  color: var(--case-accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.lab-hero h1 {
+  grid-column: 1 / -1;
+  max-width: 980px;
+  margin: 14px 0 0;
+  font-size: clamp(3rem, 7.2vw, 8.2rem);
+  font-weight: 950;
+  letter-spacing: -0.07em;
+  line-height: 0.84;
+  text-transform: uppercase;
+}
+
+.lab-title-line {
+  display: block;
+}
+
+.lab-title-line:nth-child(2) {
+  color: color-mix(in srgb, var(--case-accent) 86%, #f5f0e7);
+}
+
+.lab-subtitle {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  color: rgba(245, 240, 231, 0.66);
+  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  font-weight: 720;
+  line-height: 1.58;
+}
+
+.architecture-playground {
+  position: relative;
+  min-height: 610px;
+}
+
+.architecture-hotspots {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.module-hotspot {
+  position: absolute;
+  left: var(--module-x);
+  top: var(--module-y);
+  width: var(--module-w);
+  height: var(--module-h);
+  transform: translate(-50%, -50%);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.module-hotspot:focus-visible,
+.module-hotspot.active {
+  outline: none;
+  border-color: var(--case-accent);
+  box-shadow: 0 0 0 1px var(--case-accent), 0 0 44px color-mix(in srgb, var(--case-accent) 34%, transparent);
+}
+
+.module-details {
+  position: fixed;
+  right: clamp(22px, 5vw, 84px);
+  bottom: clamp(28px, 7vh, 72px);
+  z-index: 8;
+  width: min(430px, calc(100vw - 44px));
+  border: 1px solid color-mix(in srgb, var(--case-accent) 36%, rgba(245, 240, 231, 0.16));
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.1), transparent 42%),
+    rgba(8, 10, 7, 0.8);
+  box-shadow: 0 34px 92px rgba(0, 0, 0, 0.42);
+  padding: 24px;
+  backdrop-filter: blur(26px);
+}
+
+.module-details span,
+.module-details em,
+.module-details a,
+.case-docket span,
+.case-docket small {
+  font-family: "JetBrains Mono", monospace;
+  text-transform: uppercase;
+}
+
+.module-details span {
+  color: var(--case-accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.module-details h2 {
+  margin: 12px 0;
+  color: #f5f0e7;
+  font-size: clamp(2rem, 3.7vw, 3.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.module-details p {
+  margin: 0;
+  color: rgba(245, 240, 231, 0.76);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.58;
+}
+
+.module-details div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.module-details em {
+  border: 1px solid rgba(245, 240, 231, 0.14);
+  border-radius: 999px;
+  color: rgba(245, 240, 231, 0.74);
+  font-size: 0.67rem;
+  font-style: normal;
+  font-weight: 850;
+  padding: 8px 10px;
+}
+
+.module-details a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  width: 100%;
+  border-radius: 16px;
+  background: var(--case-accent);
+  color: #050706;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.case-docket {
+  position: fixed;
+  left: clamp(22px, 5vw, 76px);
+  bottom: clamp(28px, 7vh, 72px);
+  z-index: 8;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 132px));
+  gap: 10px;
+}
+
+.case-docket button {
+  min-height: 96px;
+  border: 1px solid rgba(245, 240, 231, 0.13);
+  border-radius: 20px;
+  background: rgba(8, 10, 7, 0.62);
+  color: #f5f0e7;
+  cursor: pointer;
+  padding: 13px;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  backdrop-filter: blur(18px);
+}
+
+.case-docket button:hover,
+.case-docket button.active {
+  border-color: var(--case-accent);
+  background: color-mix(in srgb, var(--case-accent) 15%, rgba(8, 10, 7, 0.68));
+  transform: translateY(-5px);
+}
+
+.case-docket span {
+  color: var(--case-accent);
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+
+.case-docket strong {
+  display: block;
+  margin: 8px 0;
+  font-size: 0.84rem;
+  line-height: 1.08;
+}
+
+.case-docket small {
+  color: rgba(245, 240, 231, 0.5);
+  font-size: 0.58rem;
+  font-weight: 850;
+}
+
+@media (max-width: 1120px) {
+  .lab-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-subtitle {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .case-docket {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 36px;
+  }
+
+  .module-details {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin: 260px 0 0 auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .work-lab {
+    overflow: visible;
+  }
+
+  .lab-topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .lab-topbar span {
+    display: none;
+  }
+
+  .lab-shell {
+    padding-top: 48px;
+  }
+
+  .architecture-hotspots {
+    display: none;
+  }
+
+  .module-details {
+    margin-top: 180px;
+  }
+
+  .case-docket {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-lab *,
+  .work-lab *::before,
+  .work-lab *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,55 @@
+.case-detail {
+  max-width: 948px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text);
+  letter-spacing: 0;
+}
+.case-eyebrow {
+  display: block;
+  color: var(--accent);
+  font: 500 12px/1.7 "JetBrains Mono", monospace;
+  overflow-wrap: anywhere;
+}
+.case-detail h1 {
+  margin: 18px 0 20px;
+  color: var(--text);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.case-summary {
+  max-width: 70ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.75;
+}
+.case-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  margin: 32px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-strong);
+}
+.case-detail hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; }
+.case-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.case-facts h2 { margin: 0 0 12px; color: var(--accent); font-size: 16px; font-weight: 700; line-height: 1.4; letter-spacing: 0; }
+.case-facts p { margin: 0; color: var(--text); font-size: 16px; font-weight: 600; line-height: 1.75; overflow-wrap: anywhere; }
+.case-contact { display: inline-flex; align-items: center; justify-content: center; gap: 12px; max-width: 100%; margin-top: 36px; padding: 16px 24px; border-radius: 6px; background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 700; line-height: 1.5; }
+.case-contact svg { flex-shrink: 0; }
+.case-contact:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+@media(max-width:600px) {
+  .case-detail { padding: 32px 20px 48px; }
+  .case-detail h1 { font-size: 34px; }
+  .case-summary { font-size: 16px; }
+  .case-facts { grid-template-columns: 1fr; gap: 24px; }
+}

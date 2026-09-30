@@ -1,0 +1,42 @@
+.interface-scene { position: relative; background: var(--bg); }
+.interface-surface { position: relative; min-height: 100svh; padding: 110px 5% 28px; display: grid; grid-template-rows: auto 1fr auto; gap: 32px; background: var(--bg); isolation: isolate; }
+.interface-surface canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.interface-mast { display: flex; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 18px; color: var(--muted); font: 11px monospace; }
+.interface-composition { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: 5%; align-items: center; }
+.interface-number { font: 14px monospace; color: var(--accent); }
+.interface-label { color: var(--muted); font-size: 13px; margin: 25px 0 14px; }
+.interface-copy h2 { font-size: 56px; line-height: 1.04; letter-spacing: 0; margin: 0; overflow-wrap: anywhere; }
+.interface-description { font-size: 15px; line-height: 1.7; color: var(--muted); min-height: 104px; max-width: 440px; }
+.interface-copy a, .interface-controls a { display: inline-flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--accent); padding: 12px 0; }
+.interface-preview { position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; min-width: 0; background: var(--surface, var(--panel)); }
+.interface-preview img { width: 100%; height: 100%; object-fit: contain; }
+.project-gallery .interface-preview { clip-path: inset(0 var(--project-image-mask, 0%) 0 0); }
+.project-gallery .interface-copy { opacity: var(--project-copy-opacity, 1); transform: translateY(var(--project-copy-offset, 0px)); }
+.interface-annotation { position: absolute; bottom: 18px; left: 18px; right: 18px; padding: 16px; color: var(--text); background: var(--bg); border-left: 2px solid var(--accent); font: 12px/1.6 monospace; }
+.interface-code { padding: 30px; display: grid; gap: 24px; }
+.interface-code code { font-size: 40px; color: var(--accent); }
+.interface-code p, .interface-code span { color: var(--muted); }
+.interface-controls { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); padding-top: 16px; font-size: 12px; }
+.interface-modes, .interface-pagination { display: flex; align-items: center; gap: 14px; }
+.interface-controls button { background: transparent; color: var(--muted); cursor: pointer; min-height: 44px; padding: 10px; }
+.interface-modes button[aria-pressed="true"] { color: var(--accent); box-shadow: inset 0 -2px var(--accent); }
+.interface-pagination button { display: grid; place-items: center; width: 44px; }
+.interface-controls button:hover { color: var(--accent); }
+.interface-scene :is(button,a):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media(max-width: 1050px) { .interface-copy h2 { font-size: 40px; } }
+@media(max-width: 700px) { .interface-surface { padding: 90px 20px 20px; gap: 20px; } .interface-mast { font-size: 9px; } .interface-composition { grid-template-columns: 1fr; gap: 24px; } .interface-copy h2 { font-size: 34px; } .interface-description { min-height: 0; font-size: 13px; } .interface-label { margin: 12px 0; } .interface-preview { aspect-ratio: 16 / 10; } .interface-controls { flex-wrap: wrap; } .interface-pagination { gap: 4px; } }
+.project-gallery { position: relative; background: var(--bg); }
+.project-gallery.is-horizontal { z-index: 3; background: var(--bg); }
+.project-gallery-matte { position: fixed; inset: 0; z-index: 59; background:
+  linear-gradient(90deg, color-mix(in srgb, var(--artist) 38%, transparent), transparent 42%),
+  linear-gradient(270deg, color-mix(in srgb, var(--engineer) 44%, transparent), transparent 42%),
+  radial-gradient(circle at 50% 24%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 26rem),
+  var(--bg); opacity: 0; visibility: hidden; pointer-events: none; will-change: opacity; }
+.project-gallery-matte::before { content: ""; position: absolute; inset: 0; background:
+  linear-gradient(var(--line) 1px, transparent 1px),
+  linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(transparent, black 18%, black 82%, transparent); opacity: 0.34; }
+.project-gallery.is-horizontal .project-gallery-viewport { overflow: hidden; min-height: 100svh; height: 100svh; background: var(--bg); isolation: isolate; }
+.project-gallery.is-horizontal .project-gallery-viewport:not(.is-pinned) { position: relative; }
+.project-gallery.is-horizontal .project-gallery-track { display: flex; width: 100%; height: 100%; }
+.project-gallery.is-horizontal .interface-scene { flex: 0 0 100%; min-width: 0; height: 100%; }
+.project-gallery.is-horizontal .interface-surface { min-height: 100svh; height: 100svh; }
