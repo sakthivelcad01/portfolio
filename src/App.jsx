@@ -79,17 +79,18 @@ function App() {
   useEffect(() => {
     const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     let cleanupContactReveal = null;
+    let startEntrance;
     const context = gsap.context(() => {
       if (reduceMotion) {
-        gsap.set(".loader", { display: "none" });
         return;
       }
 
-      gsap.timeline()
-        .to(".loader-progress span", { scaleX: 1, duration: 1, ease: "power3.inOut" })
-        .to(".loader", { yPercent: -100, duration: 0.9, ease: "expo.inOut" })
-        .from(".char", { yPercent: 115, rotate: 5, opacity: 0, duration: 0.8, stagger: 0.012, ease: "expo.out" }, "-=0.35")
+      const entrance = gsap.timeline({ paused: true })
+        .from(".char", { yPercent: 115, rotate: 5, opacity: 0, duration: 0.8, stagger: 0.012, ease: "expo.out" })
         .from(".hero-enter", { y: 36, opacity: 0, duration: 0.85, stagger: 0.08, ease: "expo.out" }, "-=0.4");
+      startEntrance = () => entrance.play();
+      window.addEventListener("portfolio:entrance", startEntrance, { once: true });
+      if (!document.querySelector(".site-loader")) startEntrance();
 
       gsap.set(".role-word", { yPercent: 110, opacity: 0 });
       const roleLoop = gsap.timeline({ repeat: -1 });
@@ -189,6 +190,7 @@ function App() {
 
     return () => {
       cleanupContactReveal?.();
+      window.removeEventListener("portfolio:entrance", startEntrance);
       context.revert();
     };
   }, []);
@@ -230,10 +232,6 @@ function App() {
 
   return (
     <div className="page" ref={rootRef}>
-      <div className="loader" aria-hidden="true">
-        <span>Artist × Engineer</span>
-        <div className="loader-progress"><span /></div>
-      </div>
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true" />
       <div className="handoff-cover" aria-hidden="true" />
