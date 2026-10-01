@@ -5,6 +5,7 @@
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/work", "destination": "/index.html" },
-    { "source": "/work/:path*", "destination": "/index.html" }
+    { "source": "/work/:path*", "destination": "/index.html" },
+    { "source": "/:path*", "destination": "/index.html" }
   ]
 }

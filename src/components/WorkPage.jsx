@@ -28,7 +28,7 @@ export default function WorkPage({ projects }) {
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
 
 
-      {project?.id === "01" && window.location.pathname.endsWith("/story") ? <WorkStory /> : project && ["02", "03", "04"].includes(project.id) && window.location.pathname.endsWith("/story") ? <ArchitectureStory project={project} /> : project ? (
+      {project?.id === "01" && /\/story\/?$/.test(window.location.pathname) ? <WorkStory /> : project && ["02", "03", "04"].includes(project.id) && /\/story\/?$/.test(window.location.pathname) ? <ArchitectureStory project={project} /> : project ? (
         <article className="case-detail">
           <a className="case-back" href="/work">All work <ArrowUpRight size={16} /></a>
           <span className="case-eyebrow">

@@ -471,84 +471,6 @@ main {
   grid-area: 1 / 1;
 }
 
-.side-caption {
-  align-self: end;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(22px);
-}
-
-.side-caption {
-  position: relative;
-  z-index: 8;
-}
-
-.artist-caption {
-  grid-column: 1;
-  grid-row: 2;
-  border-radius: 38px;
-  padding: 18px;
-  transform: rotate(-5deg);
-  opacity: 0.72;
-  transition: opacity 0.35s ease, transform 0.45s ease;
-}
-
-.artist-caption p {
-  margin: 0;
-  color: var(--muted);
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-.artist-caption > span {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--accent);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.engineer-caption {
-  display: grid;
-  grid-column: 3;
-  grid-row: 2;
-  gap: 10px;
-  border-radius: 32px;
-  background: var(--ink);
-  padding: 18px;
-  color: var(--bg);
-  font-family: "JetBrains Mono", monospace;
-  transform: rotate(4deg);
-  opacity: 0.72;
-  transition: opacity 0.35s ease, transform 0.45s ease;
-}
-
-.engineer-caption p {
-  margin: 0;
-  color: color-mix(in srgb, var(--bg) 78%, transparent);
-  font-size: 0.78rem;
-}
-
-.engineer-caption span {
-  display: block;
-  color: var(--accent);
-  text-transform: uppercase;
-}
-
-.hero.reveal-artist .artist-caption,
-.hero.reveal-engineer .engineer-caption {
-  opacity: 1;
-  transform: rotate(0deg) translateY(-12px);
-}
-
-.hero.reveal-artist .engineer-caption,
-.hero.reveal-engineer .artist-caption {
-  opacity: 0.34;
-}
-
 .workbench {
   position: absolute;
   inset: 0;
@@ -1616,12 +1538,6 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .side-caption {
-    grid-column: 1;
-    grid-row: auto;
-    transform: none;
-  }
-
   .hero-image-stage img {
     object-position: 50% center;
   }
@@ -1720,10 +1636,6 @@ main {
   .brace-row {
     font-size: clamp(2.6rem, 12vw, 4.5rem);
     letter-spacing: -0.06em;
-  }
-
-  .side-caption {
-    opacity: 1;
   }
 
   .workbench {

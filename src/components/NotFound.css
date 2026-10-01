@@ -1,0 +1,22 @@
+.not-found{min-height:100svh;box-sizing:border-box;display:grid;grid-template-rows:auto 1fr;padding:28px 6%;background:var(--bg);color:var(--text);cursor:auto;overflow:hidden;position:relative}
+.not-found:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent,black 22%,black 78%,transparent);animation:not-found-grid 16s linear infinite}
+.not-found__brand{width:fit-content;font-size:14px;font-weight:800;color:var(--text);text-decoration:none}
+.not-found section{align-self:center;padding:48px 0;position:relative;animation:not-found-rise .9s cubic-bezier(.2,.8,.2,1) both}
+.not-found__code{display:flex;font:900 160px/1 Inter,system-ui,sans-serif;color:var(--accent);letter-spacing:0}
+.not-found__code span{display:inline-block;animation:not-found-number .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i, 0) * 90ms)}
+.not-found__code span:nth-child(2){--i:1}.not-found__code span:nth-child(3){--i:2}
+.not-found h1{font-size:40px;line-height:1.1;letter-spacing:0;margin:24px 0 16px}
+.not-found h1 span{display:inline-block;animation:not-found-word .65s cubic-bezier(.2,.8,.2,1) both}.not-found h1 span:nth-child(2){animation-delay:90ms}.not-found h1 span:nth-child(3){animation-delay:180ms}
+.not-found p{color:var(--muted);line-height:1.6;max-width:420px;animation:not-found-fade .7s ease .35s both}
+.not-found nav{display:flex;flex-wrap:wrap;gap:24px;margin-top:32px}
+.not-found__actions{animation:not-found-fade .7s ease .48s both}
+.not-found nav a{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--accent);padding:12px 0}
+.not-found a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.not-found a:hover{color:var(--accent)}
+@media(max-width:480px){.not-found__code{font-size:112px}.not-found h1{font-size:30px}}
+@keyframes not-found-grid{to{background-position:72px 72px}}
+@keyframes not-found-rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes not-found-number{from{opacity:0;transform:translateY(35px) scale(.8);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes not-found-word{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes not-found-fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.not-found:before,.not-found section,.not-found__code span,.not-found h1 span,.not-found p,.not-found__actions{animation:none}}

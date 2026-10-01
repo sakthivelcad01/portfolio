@@ -8,6 +8,8 @@ import ProjectGallery from "./components/ProjectGallery";
 import WorkPage from "./components/WorkPage";
 import ContactCanvas from "./components/ContactCanvas";
 import ContactSignature from "./components/ContactSignature";
+import NotFound from "./components/NotFound";
+import { resolveRoute } from "./resolveRoute";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -293,16 +295,6 @@ function App() {
                 </span>
               </h1>
 
-              <aside className="side-caption artist-caption hero-enter">
-                <span>Artist</span>
-                <p>If website development is art, Sakthivel is the artist.</p>
-              </aside>
-
-              <aside className="side-caption engineer-caption hero-enter">
-                <p><span>mode</span> Full-stack architect & AI engineer</p>
-                <p><span>stack</span> C# .NET 9 / React 19 / Gemini AI</p>
-                <p><span>place</span> Tirunelveli, Tamil Nadu</p>
-              </aside>
             </section>
 
             <section className="workbench" aria-label="Artist and engineer workbench">
@@ -386,5 +378,8 @@ function App() {
 }
 
 export default function PortfolioRouter() {
-  return window.location.pathname.startsWith("/work") ? <WorkPage projects={projects} /> : <App />;
+  const route = resolveRoute(window.location.pathname, projects);
+  if (route === "home") return <App />;
+  if (route === "work") return <WorkPage projects={projects} />;
+  return <NotFound />;
 }
