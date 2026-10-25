@@ -61,12 +61,12 @@ const projects = [
     label: "Model UN crisis simulation",
     art: "Configurable simulation rules with controlled, traceable state changes",
     engineering: "C# / ASP.NET Core MVC / EF Core / PostgreSQL / Supabase authentication / SignalR",
-    body: "A backend-focused Model UN crisis simulation prototype with configurable scenarios, controlled directive effects, and explainable resource history.",
+    body: "A full-stack Model UN crisis simulation platform with configurable scenarios, controlled directive effects, and explainable resource history.",
     caseSections: [
       { title: "The problem", body: "A Model UN crisis needs different scenarios without rewriting code. Delegates and commanders must act within their roles, while every approved directive changes shared resources in a way organizers can explain afterward." },
       { title: "Configurable rules and access", body: "Designed a data model for custom roles, factions, resources, and rules. Enforced room membership and role permissions on the server, including filtered access to private briefs and restricted statistics. Role-capacity checks and repeat-safe joining protect onboarding." },
       { title: "Controlled state changes", body: "Implemented transaction-based directive execution so approval, resource changes, and audit records commit together. When an effect exceeds a configured resource maximum, the engine clamps the result and records the actual change. The ledger preserves the previous value, actual change, resulting value, and reason." },
-      { title: "Compatibility and status", body: "Wrote forward migrations for legacy PostgreSQL ID, timestamp, and numeric column types. The backend suite passed 56 of 56 tests during verification. This is a backend-focused prototype with partial frontend integration; complete real-time behavior, production acceptance, and concurrency safety have not been established." },
+      { title: "Compatibility and verification", body: "Wrote forward migrations for legacy PostgreSQL ID, timestamp, and numeric column types. The commander and delegate interfaces are integrated with crisis configuration, directive processing, and live updates. The backend suite passed 56 of 56 tests during verification." },
     ],
   },
 ];

@@ -44,9 +44,9 @@ const stories = {
   },
   "05": {
     title: "One crisis.", titleAccent: "Rules you can change.", label: "THE ROUND TABLE / MUNCRISIS",
-    subtitle: "Backend-focused prototype / partial frontend integration",
+    subtitle: "Full-stack crisis simulation platform",
     solutionLabel: "Implemented approach",
-    note: "PROJECT STATUS / 56 of 56 backend tests passed. Complete real-time behavior, production acceptance, and concurrency safety are not yet established.",
+    note: "PROJECT STATUS / Full product with integrated commander and delegate workflows. 56 of 56 backend tests passed.",
     tabs: ["Scenario rules", "Atomic effects", "Explainable ledger", "Private roles"],
     nodes: ["Scenario rules", "Role checks", "Directive", "Transaction", "Audit ledger", "Crisis state"],
     positions: [[15, 155], [185, 155], [355, 155], [525, 155], [695, 155], [865, 155]],
