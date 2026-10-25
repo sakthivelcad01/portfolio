@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Round Table system map</title>
+  <desc id="desc">Concept visualization of configurable scenario rules, authorized directives, transaction-based resource effects, and an explainable audit ledger.</desc>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#b9c8bd" stroke-width="1" opacity=".42"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#176f43" stroke-width="1.4"/></marker>
+  </defs>
+  <rect width="1600" height="900" fill="#f3ecdf"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <path d="M0 120H1600M0 756H1600" stroke="#afc2b3"/>
+  <g font-family="monospace" fill="#176f43" font-size="17" font-weight="700">
+    <text x="75" y="72">THE ROUND TABLE / MUNCRISIS</text>
+    <text x="1320" y="72">SYSTEM MAP / CONCEPT</text>
+  </g>
+  <g fill="#111411" font-family="Inter,Arial,sans-serif">
+    <text x="75" y="191" font-size="62" font-weight="800">One crisis.</text>
+    <text x="75" y="251" font-size="62" font-weight="800" fill="#176f43">Rules you can change.</text>
+  </g>
+  <g fill="none" stroke="#176f43" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M390 455H520"/>
+    <path d="M840 455H965"/>
+    <path d="M1265 455H1380"/>
+    <path d="M690 555V640H1005V560"/>
+  </g>
+  <g font-family="Inter,Arial,sans-serif">
+    <rect x="75" y="330" width="315" height="260" rx="6" fill="#fffaf1" stroke="#aec5b1" stroke-width="2"/>
+    <text x="101" y="374" fill="#176f43" font-size="16" font-weight="700">01 / CONFIGURE</text>
+    <text x="101" y="427" fill="#111411" font-size="27" font-weight="800">Scenario rules</text>
+    <path d="M101 452H364" stroke="#cbd5c9"/>
+    <text x="101" y="492" fill="#59685d" font-size="17">Roles / factions / resources</text>
+    <text x="101" y="526" fill="#59685d" font-size="17">Limits / scenario rules</text>
+
+    <rect x="520" y="330" width="320" height="260" rx="6" fill="#fffaf1" stroke="#aec5b1" stroke-width="2"/>
+    <text x="546" y="374" fill="#176f43" font-size="16" font-weight="700">02 / AUTHORIZE</text>
+    <text x="546" y="427" fill="#111411" font-size="27" font-weight="800">Directive</text>
+    <path d="M546 452H814" stroke="#cbd5c9"/>
+    <text x="546" y="492" fill="#59685d" font-size="17">Room + role checks</text>
+    <text x="546" y="526" fill="#59685d" font-size="17">Proposed action</text>
+
+    <rect x="965" y="330" width="300" height="260" rx="6" fill="#176f43" stroke="#176f43" stroke-width="2"/>
+    <text x="991" y="374" fill="#cbefda" font-size="16" font-weight="700">03 / COMMIT</text>
+    <text x="991" y="427" fill="#fffaf1" font-size="27" font-weight="800">Atomic effect</text>
+    <path d="M991 452H1239" stroke="#7fb899"/>
+    <text x="991" y="492" fill="#e1f2e6" font-size="17">Decision + resource</text>
+    <text x="991" y="526" fill="#e1f2e6" font-size="17">Audit in one transaction</text>
+
+    <rect x="1380" y="381" width="145" height="146" rx="73" fill="#e9d4b7" stroke="#176f43" stroke-width="2"/>
+    <text x="1453" y="439" text-anchor="middle" fill="#176f43" font-size="18" font-weight="800">SHARED</text>
+    <text x="1453" y="470" text-anchor="middle" fill="#111411" font-size="17">CRISIS</text>
+    <text x="1453" y="497" text-anchor="middle" fill="#111411" font-size="17">STATE</text>
+
+    <rect x="705" y="640" width="455" height="78" rx="4" fill="#d8e4dc" stroke="#aec5b1" stroke-width="2"/>
+    <text x="730" y="673" fill="#176f43" font-size="16" font-weight="700">TRACE THE OUTCOME</text>
+    <text x="730" y="700" fill="#111411" font-size="17">Before / actual change / after / reason</text>
+  </g>
+  <text x="75" y="827" fill="#59685d" font-family="monospace" font-size="16">BACKEND-FOCUSED PROTOTYPE / CONCEPT VISUALIZATION / NOT A PRODUCT SCREENSHOT</text>
+</svg>

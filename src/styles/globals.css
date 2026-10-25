@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap");
 
 .portfolio-signature {
   position: absolute;
@@ -259,6 +259,8 @@ button {
   justify-self: end;
   margin-right: 8px;
 }
+
+.nav .nav-menu-button { display: none; }
 
 .magnetic {
   will-change: transform;
@@ -1465,12 +1467,71 @@ main {
   margin-left: auto;
 }
 
-.contact div {
+.contact .contact-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   margin-top: 30px;
+}
+
+.contact .contact-autograph {
+  position: absolute;
+  bottom: 21px;
+  left: 36px;
+  width: 238px;
+  color: var(--accent);
+  text-align: left;
+  pointer-events: none;
+}
+
+.contact-autograph__label {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.contact-autograph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.contact-autograph text {
+  fill: currentColor;
+  font-family: Allura, "Segoe Script", cursive;
+  font-size: 76px;
+}
+
+.contact-autograph__ink {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 2s cubic-bezier(.45, 0, .2, 1);
+}
+
+.contact-autograph__flourish {
+  stroke-dasharray: 310;
+  stroke-dashoffset: 310;
+  transition: stroke-dashoffset .8s ease 1.35s;
+}
+
+.contact.is-revealed .contact-autograph__ink { clip-path: inset(0 0 0 0); }
+.contact.is-revealed .contact-autograph__flourish { stroke-dashoffset: 0; }
+
+@media (max-width: 1000px) {
+  .contact .contact-autograph {
+    position: static;
+    width: 214px;
+    margin: 18px auto 0;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-autograph__ink { clip-path: none; transition: none; }
+  .contact-autograph__flourish { stroke-dashoffset: 0; transition: none; }
 }
 
 .contact a {
@@ -1538,6 +1599,41 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .nav {
+    top: 10px;
+    z-index: 80;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .nav > a {
+    overflow: hidden;
+    padding-left: 16px;
+    font-size: .75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--panel-strong);
+    padding: 8px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(22px);
+  }
+
+  .nav[data-menu-open="true"] nav { display: flex; }
+  .nav nav a { display: flex; min-height: 44px; align-items: center; padding: 10px 14px; }
+  .nav > button { justify-self: center; margin: 0; padding: 12px; }
+  .nav .nav-menu-button { display: inline-flex; align-items: center; justify-content: center; margin-right: 4px; }
+
   .hero-image-stage img {
     object-position: 50% center;
   }
@@ -1594,11 +1690,6 @@ main {
 @media (max-width: 640px) {
   .nav {
     width: calc(100vw - 18px);
-    grid-template-columns: 1fr auto;
-  }
-
-  .nav nav {
-    display: none;
   }
 
   main {

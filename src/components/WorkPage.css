@@ -44,6 +44,10 @@
 .case-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 .case-facts h2 { margin: 0 0 12px; color: var(--accent); font-size: 16px; font-weight: 700; line-height: 1.4; letter-spacing: 0; }
 .case-facts p { margin: 0; color: var(--text); font-size: 16px; font-weight: 600; line-height: 1.75; overflow-wrap: anywhere; }
+.case-section { display: grid; grid-template-columns: minmax(180px, .45fr) 1fr; gap: 28px; border-top: 1px solid var(--line); padding: 24px 0; }
+.case-facts + .case-section { margin-top: 32px; }
+.case-section h2 { margin: 0; color: var(--accent); font-size: 17px; line-height: 1.5; }
+.case-section p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
 .case-contact { display: inline-flex; align-items: center; justify-content: center; gap: 12px; max-width: 100%; margin-top: 36px; padding: 16px 24px; border-radius: 6px; background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 700; line-height: 1.5; }
 .case-contact svg { flex-shrink: 0; }
 .case-contact:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
@@ -52,4 +56,5 @@
   .case-detail h1 { font-size: 34px; }
   .case-summary { font-size: 16px; }
   .case-facts { grid-template-columns: 1fr; gap: 24px; }
+  .case-section { grid-template-columns: 1fr; gap: 10px; }
 }

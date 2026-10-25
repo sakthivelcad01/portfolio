@@ -42,6 +42,22 @@ const stories = {
       { title: "Let background work leave the request.", body: "Jobs that do not need to finish before the HTTP response can lengthen the request path and consume application capacity.", before: "Background tasks block completion", after: "Queue work; process asynchronously", detail: "Kafka or RabbitMQ separates accepted work from worker processing. A queued job is not a completed trade; execution paths need explicit acknowledgements, retry handling, and duplicate protection.", focus: [5, 8], metric: "Queue → workers / proposed asynchronous path" },
     ],
   },
+  "05": {
+    title: "One crisis.", titleAccent: "Rules you can change.", label: "THE ROUND TABLE / MUNCRISIS",
+    subtitle: "Backend-focused prototype / partial frontend integration",
+    solutionLabel: "Implemented approach",
+    note: "PROJECT STATUS / 56 of 56 backend tests passed. Complete real-time behavior, production acceptance, and concurrency safety are not yet established.",
+    tabs: ["Scenario rules", "Atomic effects", "Explainable ledger", "Private roles"],
+    nodes: ["Scenario rules", "Role checks", "Directive", "Transaction", "Audit ledger", "Crisis state"],
+    positions: [[15, 155], [185, 155], [355, 155], [525, 155], [695, 155], [865, 155]],
+    edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]],
+    chapters: [
+      { title: "The scenario should define the rules.", body: "A crisis may need different roles, factions, resources, and action limits. Hard-coding one scenario would make each new simulation an application change.", before: "One fixed scenario constrains the simulation", after: "Scenario data configures the simulation", detail: "Designed a data model for custom roles, factions, resources, and rules so organizers can set up different scenarios without changing application code.", focus: [0, 1], metric: "Custom roles / factions / resources / rules" },
+      { title: "One directive, one committed outcome.", body: "Approval, resource effects, and the audit record must describe the same decision. A partial write would leave organizers with a state they could not trust.", before: "A directive could leave a partial outcome", after: "Decision, effects, and audit commit together", detail: "Implemented transaction-based directive execution. When a resource effect exceeds its configured maximum, the engine clamps the result and records the actual applied change.", focus: [2, 3, 4, 5], metric: "Approval + resource change + audit / one transaction" },
+      { title: "The result needs an explanation.", body: "A final resource value alone cannot tell a commander what changed or why. A requested increase may differ from the actual increase after a configured limit is applied.", before: "A value changes without its reasoning", after: "The ledger traces the actual effect", detail: "Recorded each resource's previous value, actual change, resulting value, and reason. This keeps the audit history aligned with the state that was committed.", focus: [3, 4, 5], metric: "Before / actual change / after / reason" },
+      { title: "Not every participant sees every fact.", body: "Private briefs and restricted statistics belong to specific roles. A hidden button alone would not enforce that boundary, and repeat joins must not duplicate membership.", before: "Client-only visibility cannot protect private data", after: "Server-enforced access and repeat-safe joining", detail: "Enforced room membership and role permissions on the server, filtered access to private data, checked role capacity, and made joining repeat-safe. Legacy PostgreSQL ID, timestamp, and numeric types were repaired with migrations.", focus: [0, 1, 5], metric: "Membership / permissions / role capacity" },
+    ],
+  },
 };
 
 const positions = [[55, 155], [255, 155], [455, 155], [655, 55], [655, 155], [655, 255], [855, 55], [855, 155], [855, 255]];
@@ -50,6 +66,7 @@ const failureLabels = {
   "02": ["FAN-OUT BLOCKED", "BANDWIDTH SATURATED", "BUFFER OVERFLOW", "RETRY STORM"],
   "03": ["MISSING TRANSLATIONS", "STALE LOCALE FILES", "LOCALE NOT REGISTERED", "UNVERIFIED RENDERING"],
   "04": ["ORIGIN OVERLOADED", "APP NODE BLOCKED", "CONNECTION PRESSURE", "REQUEST WAITING"],
+  "05": ["FIXED RULESET", "PARTIAL OUTCOME", "MISSING EXPLANATION", "ACCESS BOUNDARY"],
 };
 
 export default function ArchitectureStory({ project }) {
@@ -84,10 +101,10 @@ export default function ArchitectureStory({ project }) {
           <path className="architecture-break" d="M493 175 l9 -10 l9 20 l9 -20 l9 20 l9 -10 H547" />
           {[0, 1, 2, 3].map(index => <rect key={index} className="architecture-failed-packet" x="197" y="171" width="10" height="8" rx="2" style={{ animationDelay: `${index * -.7}s` }} />)}
           <g className="architecture-node" transform="translate(55,155)"><rect width="140" height="48" rx="4" /><text x="70" y="28" textAnchor="middle">{story.nodes[0]}</text></g>
-          <g className="architecture-node architecture-waiting" transform="translate(855,155)"><rect width="140" height="48" rx="4" /><text x="70" y="28" textAnchor="middle">{project.id === "02" ? "Connected clients" : project.id === "03" ? "Survey renderer" : "Request completion"}</text></g>
+          <g className="architecture-node architecture-waiting" transform="translate(855,155)"><rect width="140" height="48" rx="4" /><text x="70" y="28" textAnchor="middle">{project.id === "02" ? "Connected clients" : project.id === "03" ? "Survey renderer" : project.id === "05" ? "Shared crisis state" : "Request completion"}</text></g>
           <g className="architecture-hazard"><path d="M520 97 l18 30 h-36 Z" /><text x="520" y="121" textAnchor="middle">!</text></g>
           <text className="architecture-failure-label" x="520" y="75" textAnchor="middle">{failureLabels[project.id][step]}</text>
-          <text className="architecture-failure-caption" x="520" y="270" textAnchor="middle">{project.id === "03" ? "Incomplete input never reaches a verified rendering state" : "Packets stall at the bottleneck; delivery is interrupted"}</text>
+          <text className="architecture-failure-caption" x="520" y="270" textAnchor="middle">{project.id === "03" ? "Incomplete input never reaches a verified rendering state" : project.id === "05" ? ["A new scenario needs its own configurable rules", "An incomplete directive would undermine the shared state", "The final value alone cannot explain the decision", "Private data needs a server-side access boundary"][step] : "Packets stall at the bottleneck; delivery is interrupted"}</text>
           <text className="architecture-failure-caption" x="925" y="228" textAnchor="middle">WAITING</text>
         </g> : <g className="architecture-solution">
         {(story.edges || edges).map(([from, to], index) => {

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { resolveRoute } from "./resolveRoute.js";
 
-const projects = ["01", "02", "03", "04"].map(id => ({ id }));
+const projects = ["01", "02", "03", "04", "05"].map(id => ({ id }));
 test("home, work and all project routes remain available", () => {
   assert.equal(resolveRoute("/", projects), "home");
   for (const path of ["/work", "/work/", ...projects.flatMap(({ id }) =>

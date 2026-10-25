@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Linkedin, Mail, Moon, Sun } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,6 +8,7 @@ import ProjectGallery from "./components/ProjectGallery";
 import WorkPage from "./components/WorkPage";
 import ContactCanvas from "./components/ContactCanvas";
 import ContactSignature from "./components/ContactSignature";
+import ContactAutograph from "./components/ContactAutograph";
 import NotFound from "./components/NotFound";
 import { resolveRoute } from "./resolveRoute";
 
@@ -52,6 +53,22 @@ const projects = [
     engineering: "React / Automation / Telemetry",
     body: "Automation-oriented product work for execution flows, analytics visibility, and measurable user-path improvements.",
   },
+  {
+    id: "05",
+    title: "The Round Table",
+    image: "/assets/round-table-system-map.svg",
+    imageAlt: "Concept diagram of configurable crisis rules, directive execution, and a traceable resource ledger",
+    label: "Model UN crisis simulation",
+    art: "Configurable simulation rules with controlled, traceable state changes",
+    engineering: "C# / ASP.NET Core MVC / EF Core / PostgreSQL / Supabase authentication / SignalR",
+    body: "A backend-focused Model UN crisis simulation prototype with configurable scenarios, controlled directive effects, and explainable resource history.",
+    caseSections: [
+      { title: "The problem", body: "A Model UN crisis needs different scenarios without rewriting code. Delegates and commanders must act within their roles, while every approved directive changes shared resources in a way organizers can explain afterward." },
+      { title: "Configurable rules and access", body: "Designed a data model for custom roles, factions, resources, and rules. Enforced room membership and role permissions on the server, including filtered access to private briefs and restricted statistics. Role-capacity checks and repeat-safe joining protect onboarding." },
+      { title: "Controlled state changes", body: "Implemented transaction-based directive execution so approval, resource changes, and audit records commit together. When an effect exceeds a configured resource maximum, the engine clamps the result and records the actual change. The ledger preserves the previous value, actual change, resulting value, and reason." },
+      { title: "Compatibility and status", body: "Wrote forward migrations for legacy PostgreSQL ID, timestamp, and numeric column types. The backend suite passed 56 of 56 tests during verification. This is a backend-focused prototype with partial frontend integration; complete real-time behavior, production acceptance, and concurrency safety have not been established." },
+    ],
+  },
 ];
 
 function splitText(text) {
@@ -65,6 +82,7 @@ function splitText(text) {
 function App() {
   const { theme, toggleTheme } = useTheme();
   const [heroSide, setHeroSide] = useState("center");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const rootRef = useRef(null);
   const cursorRef = useRef(null);
 
@@ -243,15 +261,18 @@ function App() {
         <i />
       </div>
 
-      <header className="nav hero-enter">
-        <a className="magnetic" href="#top" onClick={(e) => navigateTo(e, "#top")}>Sakthivel S</a>
-        <nav aria-label="Primary navigation">
-          <a className="magnetic" href="#duality" onClick={(e) => navigateTo(e, "#duality")}>Duality</a>
-          <a className="magnetic" href="/work">Work</a>
-          <a className="magnetic" href="#contact" onClick={(e) => navigateTo(e, "#contact")}>Contact</a>
+      <header className="nav hero-enter" data-menu-open={mobileMenuOpen}>
+        <a className="magnetic" href="#top" onClick={(e) => { setMobileMenuOpen(false); navigateTo(e, "#top"); }}>Sakthivel S</a>
+        <nav id="primary-nav" aria-label="Primary navigation">
+          <a className="magnetic" href="#duality" onClick={(e) => { setMobileMenuOpen(false); navigateTo(e, "#duality"); }}>Duality</a>
+          <a className="magnetic" href="/work" onClick={() => setMobileMenuOpen(false)}>Work</a>
+          <a className="magnetic" href="#contact" onClick={(e) => { setMobileMenuOpen(false); navigateTo(e, "#contact"); }}>Contact</a>
         </nav>
-        <button className="magnetic" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}>
+        <button className="magnetic nav-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}>
           {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
+        <button className="nav-menu-button" type="button" aria-controls="primary-nav" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} onClick={() => setMobileMenuOpen(open => !open)}>
+          {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
         </button>
       </header>
 
@@ -363,7 +384,8 @@ function App() {
             <span>Final merge</span>
             <h2><span className="mask"><span className="reveal-line">Bring the idea. I’ll bring both sides.</span></span></h2>
             <p>Visual taste for the first impression. Engineering judgment for the production system underneath.</p>
-            <div>
+            <ContactAutograph />
+            <div className="contact-actions">
               <a className="magnetic" href="mailto:sakthivels05062@gmail.com"><Mail size={18} /> Email</a>
               <a className="magnetic" href="https://github.com/sakthivelcad01" target="_blank" rel="noreferrer"><Github size={18} /> GitHub</a>
               <a className="magnetic" href="https://linkedin.com/in/sakthivel-s" target="_blank" rel="noreferrer"><Linkedin size={18} /> LinkedIn</a>

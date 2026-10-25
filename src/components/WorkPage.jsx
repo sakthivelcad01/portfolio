@@ -28,7 +28,7 @@ export default function WorkPage({ projects }) {
       <div className="cursor" ref={cursorRef} aria-hidden="true" />
 
 
-      {project?.id === "01" && /\/story\/?$/.test(window.location.pathname) ? <WorkStory /> : project && ["02", "03", "04"].includes(project.id) && /\/story\/?$/.test(window.location.pathname) ? <ArchitectureStory project={project} /> : project ? (
+      {project?.id === "01" && /\/story\/?$/.test(window.location.pathname) ? <WorkStory /> : project && ["02", "03", "04", "05"].includes(project.id) && /\/story\/?$/.test(window.location.pathname) ? <ArchitectureStory project={project} /> : project ? (
         <article className="case-detail">
           <a className="case-back" href="/work">All work <ArrowUpRight size={16} /></a>
           <span className="case-eyebrow">
@@ -36,7 +36,7 @@ export default function WorkPage({ projects }) {
           </span>
           <h1>{project.title}</h1>
           <p className="case-summary">{project.body}</p>
-          {project.image && <img className="case-image" src={project.image} alt={`${project.title} project artwork`} />}
+          {project.image && <img className="case-image" src={project.image} alt={project.imageAlt || `${project.title} project artwork`} />}
           <hr />
           <div className="case-facts">
             <section>
@@ -48,6 +48,9 @@ export default function WorkPage({ projects }) {
               <p>{project.engineering}</p>
             </section>
           </div>
+          {project.caseSections?.map(section => <section className="case-section" key={section.title}>
+            <h2>{section.title}</h2><p>{section.body}</p>
+          </section>)}
           <a className="case-contact" href="mailto:sakthivels05062@gmail.com">
             Discuss this project <ArrowUpRight size={18} />
           </a>

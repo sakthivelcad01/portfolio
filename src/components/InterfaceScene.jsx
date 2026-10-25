@@ -120,21 +120,21 @@ export default function InterfaceScene({ projects, initialIndex = 1, scrollManag
       <header className="interface-mast"><span>SAKTHIVEL S / SELECTED WORK</span><span>FORM + FUNCTION</span></header>
       <div className="interface-composition">
         <div className="interface-copy" data-blueprint>
-          <span className="interface-number">{project.id} / 04</span>
+          <span className="interface-number">{project.id} / {String(projects.length).padStart(2, "0")}</span>
           <p className="interface-label">{project.label}</p>
           <h2>{project.title}</h2>
           <p className="interface-description">{mode === "artist" ? project.body : project.engineering}</p>
           <a href={`/work/${project.id}`}>Inside the project <ArrowUpRight size={20} /></a>
         </div>
         <div className="interface-preview" data-blueprint>
-          {project.image ? <img key={project.image} src={project.image} alt={`${project.title} interface`} /> : <div className="interface-code"><span>Cal.com / contribution</span><code>input.trim()</code><p>URL validation. Focused test coverage.</p></div>}
+          {project.image ? <img key={project.image} src={project.image} alt={project.imageAlt || `${project.title} interface`} /> : <div className="interface-code"><span>Cal.com / contribution</span><code>input.trim()</code><p>URL validation. Focused test coverage.</p></div>}
           {mode === "engineer" && <div className="interface-annotation">{project.engineering}</div>}
         </div>
       </div>
       <footer className="interface-controls">
         <div className="interface-modes" aria-label="Project perspective"><button aria-pressed={mode === "artist"} onClick={() => setMode("artist")}>Artist</button><button aria-pressed={mode === "engineer"} onClick={() => setMode("engineer")}>Engineer</button></div>
         <a href="/#project-overview">All work <ArrowUpRight size={16}/></a>
-        <div className="interface-pagination"><button onClick={() => change(-1)} aria-label="Previous project"><ArrowLeft size={20}/></button><span aria-live="polite">{project.id} / 04</span><button onClick={() => change(1)} aria-label="Next project"><ArrowRight size={20}/></button></div>
+        <div className="interface-pagination"><button onClick={() => change(-1)} aria-label="Previous project"><ArrowLeft size={20}/></button><span aria-live="polite">{project.id} / {String(projects.length).padStart(2, "0")}</span><button onClick={() => change(1)} aria-label="Next project"><ArrowRight size={20}/></button></div>
       </footer>
     </div>
   </section>;
